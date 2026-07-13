@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div id="mode-popup" class="popup-overlay">
+        <div class="popup-menu">
+            <div class="options-row">
+                <label class="option">
+                    <input type="radio" name="mode" value="solar" checked>
+                    <span>Solar System</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="mode" value="chaos">
+                    <span>Chaos</span>
+                </label>
+            </div>
+
+            <div id="solar-options" class="mode-options">
+                <label class="field-row">
+                    <span>Number of Asteroids</span>
+                    <input id="asteroid-count" type="number" value="0" min="0">
+                </label>
+                <label class="field-row">
+                    <span>Number of Ice Bodies</span>
+                    <input id="icebody-count" type="number" value="0" min="0">
+                </label>
+
+                <label class="checkbox-row">
+                    <input type="checkbox" id="random-masses">
+                    <span>Random Masses</span>
+                </label>
+
+                <div id="random-mass-options" class="nested-options hidden">
+                    <label class="field-row">
+                        <span>Minimum</span>
+                        <input type="number" value="1" min="1">
+                    </label>
+                    <label class="field-row">
+                        <span>Maximum</span>
+                        <input type="number" value="1" min="1">
+                    </label>
+
+                </div>
+            </div>
+
+            <div id="chaos-options" class="mode-options hidden">
+                <label class="field-row range-field">
+                    <span>Minimum and Maximum X-Coordinates</span>
+                    <div class="range-inputs">
+                        <input id="min-x" type="number" value="-100" min="-1000000">
+                        <input id="max-x" type="number" value="100" min="-1000000">
+                    </div>
+                </label>
+                <label class="field-row range-field">
+                    <span>Minimum and Maximum Y-Coordinates</span>
+                    <div class="range-inputs">
+                        <input id="min-y" type="number" value="-100" min="-1000000">
+                        <input id="max-y" type="number" value="100" min="-1000000">
+                    </div>
+                </label>
+                <label class="field-row range-field">
+                    <span>Minimum and Maximum z-Coordinates</span>
+                    <div class="range-inputs">
+                        <input id="min-z" type="number" value="-100" min="-1000000">
+                        <input id="max-z" type="number" value="100" min="-1000000">
+                    </div>
+                </label>
+                <label class="field-row range-field">
+                    <span>Minimum and Maximum X-Velocities</span>
+                    <div class="range-inputs">
+                        <input id="min-xvel" type="number" value="-10" min="-1000000">
+                        <input id="max-xvel" type="number" value="10" min="-1000000">
+                    </div>
+                </label>
+                <label class="field-row range-field">
+                    <span>Minimum and Maximum Y-Velocities</span>
+                    <div class="range-inputs">
+                        <input id="min-yvel" type="number" value="-10" min="-1000000">
+                        <input id="max-yvel" type="number" value="10" min="-1000000">
+                    </div>
+                </label>
+                <label class="field-row range-field">
+                    <span>Minimum and Maximum Z-Velocities</span>
+                    <div class="range-inputs">
+                        <input id="min-zvel" type="number" value="-10" min="-1000000">
+                        <input id="max-zvel" type="number" value="10" min="-1000000">
+                    </div>
+                </label>
+                <label class="field-row range-field">
+                    <span>Minimum masses</span>
+                    <div class="range-inputs">
+                        <input id="chaos-min-mass" type="number" value="1" min="1">
+                        <input id="chaos-max-mass" type="number" value="1" min="1">
+                    </div>
+                </label>
+                <label class="field-row">
+                    <span>Number of Bodies</span>
+                    <input id="chaos-number-bodies" type="number" value="1" min="1">
+                </label>
+            </div>
+
+            <div class="blank-section" aria-hidden="true"></div>
+            <button id="confirm-mode" type="button">Confirm</button>
+        </div>
+    </div>
+
+    <canvas id="simulation"></canvas>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
