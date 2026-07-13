@@ -28,7 +28,7 @@ Here are some bugs:
 Key Preformance Benchmarks:
 For context: A simple O(n^2) implementation can handle about 800 bodies smoothly and will crash around 1500 bodies. Some engineering decisions can marginally improve this, but not by much.
 
-Solar System: Can handle 18K bodies, although somewhat laggy. You can push higher to 19k, but weird bugs will begin to happen including the disappearnce of the planets and a more sparse Kuiper belt. Can comfortably run in the 6k-10k range. Implementing random masses doesn't seem to affect preformance, but it's reasonable to think that very high masses could make calculations take longer.
+Solar System: Can handle 18K bodies, although somewhat laggy. You can push higher to 19k, but weird bugs will begin to happen including the disappearance of the planets and a more sparse Kuiper belt. Can comfortably run in the 6k-10k range. Implementing random masses doesn't seem to affect preformance, but it's reasonable to think that very high masses could make calculations take longer.
 Chaos: Has similar preformance metrics, but is generally a little bit slower.
 
 Goals:
