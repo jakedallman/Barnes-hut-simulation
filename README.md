@@ -4,7 +4,7 @@ This is a fairly straightforward barnes-hut simulation, meaning, instead of calc
 A more detailed but still brief explaination of the algorithm is as follows:
 Space is divided into octants, and then octants are divided into more octants until a certain depth is achieved. These octants are stored in a tree structure where the root is the whole of space (with arbitrary bounds). Then, for each body in the simulation, you start at the nodes just below the root and check the following condition:
 
-Is the distance between the width of the node divided by the distance between the center of mass of the body below a threshold value (theta; in this case 0.3).
+Is the distance between the width of the node divided by the distance between the center of mass of the body below a threshold value (theta; in this case 0.3)?
 
 If this is true, you calculate the gravitation effect between the node and body as if the node were a point mass. If not, you check the node's children until you reach max depth. Of course, there are edge cases like when there are no bodies in a node that you need to account for, but that's the gist. Here's a more in-depth wiki on it: 
 https://en.wikipedia.org/wiki/Barnes%E2%80%93Hut_simulation
