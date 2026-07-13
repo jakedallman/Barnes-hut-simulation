@@ -14,7 +14,9 @@ Here are some bugs:
 * Energy isn't conserved, which is to be expected because this is an approximation algorithm, but some decay is noticeable when the simulation runs for a while. This is forgivable because Barnes-hut simulations are usually used to model galaxy collisions.
 * When you zoom out, everything disappears. It reappears if you zoom in. This is because of dynamic sizing, and could be solved with an orthographic camera, but that makes the normal simulation look strange.
 * This isn't exactly a bug, but the orbital patterns aren't realistic because, in order to make them true to reality, the simulation would need to be 99.99% empty space, which isn't a great visual. Also, orbitals are mostly circular because of initial velocity values, but elliptical orbits are very possible if you changed the initial velocities.
+
 Key Performance Benchmarks: For context: A simple O(n^2) implementation can handle about 800 bodies smoothly and will crash around 1500 bodies. Some engineering decisions can marginally improve this, but not by much.
+
 Solar System: Can handle 18K bodies, although somewhat laggy. You can push higher to 19k, but weird bugs will begin to happen including the disappearance of the planets and a more sparse Kuiper belt. Can comfortably run in the 6k-10k range. Implementing random masses doesn't seem to affect performance, but it's reasonable to think that very high masses could make calculations take longer. Chaos: Has similar performance metrics, but is generally a little bit slower.
 Goals: I hope to perhaps add collisions to this at a later date, although I am concerned this could cause lag. Most likely, I would use the already created ocrtree to do this. I might use WebGL to shift calculation to the GPU, which could dramatically improve performance since the main bottleneck is physics.
 
