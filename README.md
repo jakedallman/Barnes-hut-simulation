@@ -1,3 +1,5 @@
+Deployment: https://jakedallman.github.io/Barnes-hut-simulation/
+
 Hey!
 This is a fairly straightforward barnes-hut simulation, meaning, instead of calculating the acceleration of each planet using the usual O(n^2) approach where every body pulls on the others, the algorithm recursively collapses space when bodies are close together, limiting the number of bodies involved in calculation and achieving an O(n * log n ) complexity.
 
