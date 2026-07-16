@@ -21,7 +21,7 @@ Anyway, here are the important engineering decisions:
 * Bounds of Octree: The simulation only fully works within (-30000,-30000,-30000) and (30000,30000,3000) because expanding it much beyond this point would require giving the octree more depth, creating a performance bottleneck. When small bodies exit, they continue to experience gravity, but the rest of the simulation no longer feels their effects, which has no meaningful consequences most of the time.
 
 Here are some bugs:
-* When you add 20K bodies or more to the solar system, the sun and planets disappear. Weird, right? It likely has to do with the size of arrays passed between webworkers.
+* ~~When you add 20K bodies or more to the solar system, the sun and planets disappear. Weird, right? It likely has to do with the size of arrays passed between webworkers.~~ Fix: The buffer array is given a fixed size. I changed it to 25k. It may be set to any arbitrary value by changing maxBodyCount.
 * Energy isn't conserved, which is to be expected because this is an approximation algorithm, but some decay is noticeable when the simulation runs for a while. This is forgivable because Barnes-hut simulations are usually used to model galaxy collisions.
 * When you zoom out, everything disappears. It reappears if you zoom in. This is because of dynamic sizing, and could be solved with an orthographic camera, but that makes the normal simulation look strange.
 * This isn't exactly a bug, but the orbital patterns aren't realistic because, in order to make them true to reality, the simulation would need to be 99.99% empty space, which isn't a great visual. Also, orbitals are mostly circular because of initial velocity values, but elliptical orbits are very possible if you changed the initial velocities.
