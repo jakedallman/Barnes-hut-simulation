@@ -2,37 +2,31 @@ import './MenuLogic.js';
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
 import { OrbitControls } from 'https://esm.sh/three@0.155.0/examples/jsm/controls/OrbitControls.js';
-
-//Canvas initialization and scene setup
 const canvas = document.getElementById('simulation');
+
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
 const scene = new THREE.Scene();
+
 const camera = new THREE.PerspectiveCamera(20, canvas.clientWidth / canvas.clientHeight, 0.1, 500000);
+
+// Camera moved far enough to see the current planet layout
 camera.position.set(15000, 12000, 15000);
 camera.lookAt(0, 0, 0);
 renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 10));
 
-
-
-///creates web worker to handle all the physics and establishes double
-///buffered architecture
 const worker = new Worker('worker.js');
-const maxBodyCount = 10000;
+const maxBodyCount = 25000; /// Maximum number of celestial bodies
 const frameBuffers = [
     new ArrayBuffer(maxBodyCount * 4 * Float32Array.BYTES_PER_ELEMENT),
     new ArrayBuffer(maxBodyCount * 4 * Float32Array.BYTES_PER_ELEMENT)
 ];
 
-
-///gets DOM elements (IMPORTANT: WORKER DOESN'T HAVE ACCESS)
 const confirmButton = document.getElementById('confirm-mode');
 const randomMassesCheckbox = document.getElementById('random-masses');
 const asteroidCountInput = document.getElementById('asteroid-count');
 const iceBodiesCountInput = document.getElementById('icebody-count');
 
-
-///Sends DOM elements to the worker in order to set up scene
 confirmButton?.addEventListener('click', () => {
     const selectedMode = document.querySelector('input[name="mode"]:checked')?.value;
     const asteroids = parseInt(asteroidCountInput?.value, 10) || 0;
@@ -81,8 +75,6 @@ confirmButton?.addEventListener('click', () => {
     });
 });
 
-
-///Creates intsanced mesh for 3D planets + points mesh for asteroids
 const mesh = new THREE.InstancedMesh(new THREE.SphereGeometry(10, 10, 10), new THREE.MeshBasicMaterial({ color: 0xffffff }), 10000);
 const dummy = new THREE.Object3D();
 scene.add(mesh);
@@ -91,7 +83,7 @@ let index = 0;
 const geometry = new THREE.BufferGeometry();
 
 let count = 0;
-let locations = new Float32Array(10000 * 3);
+let locations = new Float32Array(maxBodyCount * 3);
 let bodyCount = 0;
 
 geometry.setAttribute('position', new THREE.BufferAttribute(locations, 3));
@@ -117,8 +109,6 @@ controls.keys = {
   BOTTOM: 'ArrowDown'
 };
 
-
-///Recieves position data from worker and updates the canvas
 function processFrameData(buffer) {
     const receivedData = new Float32Array(buffer);
     count = 0;
@@ -150,7 +140,6 @@ function processFrameData(buffer) {
     geometry.attributes.position.needsUpdate = true;
 }
 
-///Sends the buffer back to the worker
 worker.onmessage = function(event) {
     const { type, buffer, bodyCount: receivedBodyCount } = event.data;
     if (type !== 'frame') return;
